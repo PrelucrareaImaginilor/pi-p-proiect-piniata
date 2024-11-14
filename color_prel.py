@@ -3,19 +3,68 @@ import PIL as pil
 import cv2 as cv
 import matplotlib.pyplot as plt
 
-from text_fct import switch, pill_color
 
+
+def switch(avg):
+    h,s,v=avg
+    #print(h,s,v)
+    if(v==0 and s==0 and h==0) :
+        return "BLACK"
+    elif(s==0 and v>=70 or (s<=30 and v>80)):
+        return "WHITE"
+    elif(s==0 and v!=0):
+        return "GRAY"
+    if h<5 or h<14:
+        if v<=40:
+            return "BROWN"
+        else:
+            return "RED"
+    elif h<20:
+        if v<=40:
+            return "BROWN"
+        else:
+            return "ORANGE"
+    elif h<40:
+        if v<=40:
+            return "BROWN"
+        else:
+            return "YELLOW"
+    elif h<120:
+        return "GREEN"
+    elif h < 130:
+        return "TURQUOISE"
+    elif h<230:
+        return "BLUE"
+    elif h<250:
+        return "VIOLET"
+    elif h<330:
+        return "PINK"
+    else:
+        return "RED"
+
+def pill_color(color1,color2,color3,color4):
+    if color1==color2==color3==color4:
+        return color1
+    elif color1==color3 and color2==color4:
+        return color1+", "+color2
+    elif color1==color3==color2 or color1==color3==color4:
+        return color1
+    elif color1==color4==color2 or color2==color3==color4:
+        return color2
+    elif color1==color3:
+        return color1+", "+color2
+    elif color2==color4:
+        return color1+", "+color2
+    else:
+        return color1
 
 def my_pill_color(color):
     #transf imaginii in imagine hsv
     color = cv.cvtColor(color, cv.COLOR_RGB2HSV_FULL)
-    #--- eventual de eliminat
-    #  |
-    # \ /
-    #  v
+
     color = cv.medianBlur(color, 3)
     color = cv.convertScaleAbs(color, color, 1.1, -20)
-    #----
+
 
     #regiuni de interes
     roi1 = [30, 20, 45, 35]
@@ -65,5 +114,5 @@ def my_pill_color(color):
     # color = cv.rectangle(color, (roi3[0], roi3[1]), (roi3[2], roi3[3]), c, 4)
     # color = cv.rectangle(color, (roi4[0], roi4[1]), (roi4[2], roi4[3]), d, 4)
 
-    my_pill_color=pill_color(color1, color2, color3, color4)
-    return my_pill_color
+    my_pill_colors=pill_color(color1, color2, color3, color4)
+    return my_pill_colors

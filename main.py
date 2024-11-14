@@ -3,7 +3,7 @@ import PIL as pil
 import cv2 as cv
 import matplotlib.pyplot as plt
 import background_fct as bk
-#import text_fct as txf
+
 from color_prel import my_pill_color
 import traincnn
 import makeDataset
