@@ -43,6 +43,9 @@ def prepare_image(img):
     img = cv.cvtColor(img, cv.COLOR_RGB2GRAY)
     mask = bg.masca_pastila(img)
     img = bg.contur_pastila(img, mask)
+    plt.figure()
+    plt.imshow(img, cmap='gray')
+    plt.show()
     # adaugare dimensiune pt canal
     img = np.expand_dims(img, axis=-1)
     # convert la float32
@@ -77,7 +80,7 @@ def train_cnn(train_split=0.5):
 
     # arhitectura CNN
     cnn = models.Sequential([
-        layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu', input_shape=(96, 120, 1)),
+        layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu', input_shape=(120, 120, 1)),
         layers.MaxPooling2D(pool_size=(2, 2)),
         layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu'),
         layers.MaxPooling2D(pool_size=(2, 2)),

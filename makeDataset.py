@@ -17,7 +17,7 @@ def generare_dataset():
     def read_image(image_file, label):
         def _process_image(image_file_str):
             image_path = directory + image_file_str.numpy().decode('utf-8')
-            imagenp = np.asarray(pil.Image.open(image_path).resize((120, 96)))
+            imagenp = np.asarray(pil.Image.open(image_path).resize((120, 120)))
             imagenp = cv2.cvtColor(imagenp, cv2.COLOR_RGB2GRAY)
             mask = bg.masca_pastila(imagenp)
             imagenp = bg.contur_pastila(imagenp, mask)

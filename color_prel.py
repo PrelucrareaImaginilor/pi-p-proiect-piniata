@@ -113,6 +113,9 @@ def my_pill_color(color):
     # color = cv.rectangle(color, (roi2[0], roi2[1]), (roi2[2], roi2[3]), b, 4)
     # color = cv.rectangle(color, (roi3[0], roi3[1]), (roi3[2], roi3[3]), c, 4)
     # color = cv.rectangle(color, (roi4[0], roi4[1]), (roi4[2], roi4[3]), d, 4)
+    # plt.figure()
+    # colorRGB = cv.cvtColor(color, cv.COLOR_HSV2RGB_FULL)
+    # plt.imshow(colorRGB)
 
     my_pill_colors=pill_color(color1, color2, color3, color4)
     return my_pill_colors
