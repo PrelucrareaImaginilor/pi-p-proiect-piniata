@@ -30,3 +30,15 @@ def generare_dataset():
     ds_all = tf.data.Dataset.from_tensor_slices((file_paths, labels))
     ds_all = ds_all.map(read_image)
     ds_all.save('./dataset_pastile')
+
+def generate_ds_color():
+    directory = '.\\ds\\'
+    df = pd.read_csv(directory + 'colors.csv')
+    color1 = df['color1'].values
+    color2 = df['color2'].values
+    rgb1= df['rgb1'].values
+    rgb2 = df['rgb2'].values
+
+    ds_all = tf.data.Dataset.from_tensor_slices((rgb1, rgb2,color1,color2))
+    ds_all.save('./dataset_pastile_culoare')
+

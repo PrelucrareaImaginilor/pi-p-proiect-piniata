@@ -4,10 +4,10 @@ import numpy as np
 import PIL as pil
 import cv2 as cv
 import matplotlib.pyplot as plt
-import background_fct as bk
 
 from color_prel import my_pill_color
 import traincnn
+import train_color_fcnn
 import makeDataset
 import pandas as pd
 
@@ -33,16 +33,21 @@ def main():
     if choice == '1':
         print('Generare dataset din folderul ds...')
         makeDataset.generare_dataset()
+        makeDataset.generate_ds_color()
+
     elif choice == '2':
-        print('Antrenare CNN...')
+        print('Antrenare CNN si FCNN...')
         traincnn.train_cnn()
+        train_color_fcnn.train_fcnn()
     elif choice == '3':
         print('Predictie...')
         #deschidem imaginea
-        temp = readImage("./ds/1.jpg")
+        temp = readImage("./ds/614.jpg")
         color = temp.copy()
+
         #incarcam cnn
         cnn = traincnn.get_cnn()
+        fcnn=train_color_fcnn.get_fcnn()
 
         #facem imaginea grayscale
         temp = cv.cvtColor(temp, cv.COLOR_RGB2GRAY)
@@ -51,34 +56,48 @@ def main():
         #mascaPastila = bk.masca_pastila(img)
         #contur = bk.contur_pastila(img,mascaPastila) # preluam forma pastilei
         #nobg = bk.eliminare_fundal(img,mascaPastila) #eliminam fundalul
-        name = my_pill_color(color) # obtinem culorile pastilei
+
+        #test functie care returneaza culori
+        predicted_color=train_color_fcnn.get_color_prediction(fcnn,color)
+        #------
+
+
         shape = traincnn.prepare_image(color) #pregatim imaginea pt cnn
-        predicted_shape = traincnn.get_shape_prediction(cnn, shape)
-        fc_afisare(color, name, predicted_shape)
-        plt.show()
+        # predicted_shape = traincnn.get_shape_prediction(cnn, shape)
+        #fc_afisare(color, predicted_color)#, predicted_shape)
+        #plt.show()
     elif choice == '4':
         cnn = traincnn.get_cnn()
         df = pd.read_csv('./shapescolors.csv')
         shapes = df['shape'].values
         colors = df['color'].values
+        colors = df['color'].values
         s=0
         c=0
         t = 0
-        for i in range(3521, 3526):#4192):#(2396, 2436):#4192): #imagini pe care nu a invatat
+        for i in range(1, 2192):#4192):#(2396, 2436):#4192): #imagini pe care nu a invatat
             img = readImage(f"./ds/{i}.jpg")
             pcolor = my_pill_color(img)
-            shimg = traincnn.prepare_image(img)
-            pshape = traincnn.get_shape_prediction(cnn, shimg)
-            if pshape in shapes[i-1]:
-                s = s+1
-            correct = 0
+            #todo: de reparat cu formele
+            # shimg = traincnn.prepare_image(img)
+            # pshape = traincnn.get_shape_prediction(cnn, shimg)
+            # if pshape in shapes[i-1]:
+            #     s = s+1
+            # correct = 0
+            # for color in pcolor.split(", "):
+            #     if color in colors[i-1]:
+            #         correct = correct+1
+
+            fcnn=train_color_fcnn.get_fcnn()
+            pcolor=train_color_fcnn.get_color_prediction(fcnn, img)
+            print(pcolor)
+
             for color in pcolor.split(", "):
                 if color in colors[i-1]:
-                    correct = correct+1
-            fc_afisare(img, pcolor, pshape, f"{colors[i-1]} {shapes[i-1]}")
+                    c=c+1
+
+            fc_afisare(img, pcolor, "", f"{colors[i-1]} {shapes[i-1]}")
             plt.show()
-            if correct == len(colors[i-1].split(", ")):
-                c = c+1
             t = t+1
         c = c/t
         s = s/t
@@ -87,3 +106,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+#merge dar gen creca si ia plot undeva ca zice asta:  si 4000 de ploturi nu cred ca pot sa apara yk :))
+
+#acu da?
+#merge???
