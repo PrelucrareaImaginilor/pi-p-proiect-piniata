@@ -64,18 +64,18 @@ def main():
 
         shape = traincnn.prepare_image(color) #pregatim imaginea pt cnn
         # predicted_shape = traincnn.get_shape_prediction(cnn, shape)
-        #fc_afisare(color, predicted_color)#, predicted_shape)
-        #plt.show()
+        fc_afisare(color, predicted_color)#, predicted_shape)
+        plt.show()
     elif choice == '4':
         cnn = traincnn.get_cnn()
         df = pd.read_csv('./shapescolors.csv')
         shapes = df['shape'].values
         colors = df['color'].values
-        colors = df['color'].values
         s=0
         c=0
         t = 0
-        for i in range(1, 2192):#4192):#(2396, 2436):#4192): #imagini pe care nu a invatat
+        fcnn=train_color_fcnn.get_fcnn()
+        for i in range(1, 4192):#4192):#(2396, 2436):#4192): #imagini pe care nu a invatat
             img = readImage(f"./ds/{i}.jpg")
             pcolor = my_pill_color(img)
             #todo: de reparat cu formele
@@ -88,16 +88,17 @@ def main():
             #     if color in colors[i-1]:
             #         correct = correct+1
 
-            fcnn=train_color_fcnn.get_fcnn()
+
             pcolor=train_color_fcnn.get_color_prediction(fcnn, img)
-            print(pcolor)
-
+            correct=0
             for color in pcolor.split(", "):
-                if color in colors[i-1]:
-                    c=c+1
+                if color in colors[i - 1]:
+                    correct = correct + 1
+            if correct == len(colors[i - 1].split(", ")):
+                c = c + 1
 
-            fc_afisare(img, pcolor, "", f"{colors[i-1]} {shapes[i-1]}")
-            plt.show()
+            # fc_afisare(img, pcolor, "", f"{colors[i-1]} {shapes[i-1]}")
+            # plt.show()
             t = t+1
         c = c/t
         s = s/t

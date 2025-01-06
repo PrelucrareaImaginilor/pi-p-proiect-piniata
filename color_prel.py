@@ -46,13 +46,12 @@ def switch(avg):
 
 def my_pill_color(color):
     #transf imaginii in imagine hsv
-    color = cv.cvtColor(color, cv.COLOR_RGB2HSV_FULL)
     color = cv.medianBlur(color, 3)
     color = cv.convertScaleAbs(color, color, 1.1, -20)
 
     #regiuni de interes
-    roi1 = [30, 20, 45, 35]
-    roi2 = [80, 20, 95, 35]
+    roi1 = [30, 70, 45, 85]
+    roi2 = [80, 70, 95, 85]
 
 
     #sectiuni de imagine care reprezinta zonele de interes

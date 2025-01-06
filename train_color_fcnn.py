@@ -35,8 +35,8 @@ def train_fcnn(train_split=0.5):
 
     for x1,x2, y1,y2 in ds_train:
         #string-urile rgb sunt transformate in liste, iar fiecare element este normalizat la 255
-        x1_list = [float(val) for val in x1.numpy().decode('utf-8').split(',')]
-        x2_list = [float(val) for val in x2.numpy().decode('utf-8').split(',')]
+        x1_list = [float(val)/255 for val in x1.numpy().decode('utf-8').split(',')]
+        x2_list = [float(val)/255 for val in x2.numpy().decode('utf-8').split(',')]
         y1_train.append(y1.numpy())
         y2_train.append(y2.numpy())
         x1_train.append(x1_list)
@@ -44,8 +44,8 @@ def train_fcnn(train_split=0.5):
 
 
     for x1, x2, y1, y2 in ds_test:
-        x1_list = [float(val)  for val in x1.numpy().decode('utf-8').split(',')]
-        x2_list = [float(val)  for val in x2.numpy().decode('utf-8').split(',')]
+        x1_list = [float(val)/255 for val in x1.numpy().decode('utf-8').split(',')]
+        x2_list = [float(val)/255 for val in x2.numpy().decode('utf-8').split(',')]
         y1_test.append(y1.numpy())
         y2_test.append(y2.numpy())
         x1_test.append(x1_list)
@@ -54,7 +54,6 @@ def train_fcnn(train_split=0.5):
 #VAR2
     input_train = np.concatenate([x1_train, x2_train], axis=1)
     input_test = np.concatenate([x1_test, x2_test], axis=1)
-
     output1_train = np.array(y1_train)  # Primele 3 clase
     output2_train = np.array(y2_train)  # Ultimele 3 clase
     output1_test = np.array(y1_test)
@@ -91,16 +90,18 @@ def train_fcnn(train_split=0.5):
 
 
 def prepare_input(color1, color2):
+    color1_normalized = [float(val)/255 for val in color1]
+    color2_normalized = [float(val)/255  for val in color2]
+    input_data = np.concatenate([color1_normalized, color2_normalized], axis=0)  # (6,)
+    input_data = np.array(input_data).reshape(1, 6)
+    return input_data
 
-    # concatenare
-    print(color1, color2)
-    input_data = np.concatenate([color1, color2], axis=0)
-    return np.expand_dims(input_data, axis=0)
 
 def get_color_prediction(fcnn, img):
     color1,color2=my_pill_color(img)
 
     input=prepare_input(color1,color2)
+    print('prediction input;', input)
     pred = fcnn.predict(input)
 
     pred1=np.argmax(pred[0],axis=1)
