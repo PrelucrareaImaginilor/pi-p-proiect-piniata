@@ -10,7 +10,7 @@ import traincnn
 import train_color_fcnn
 import makeDataset
 import pandas as pd
-
+import name_clas as nc
 
 def readImage(path):
     img = np.asarray(pil.Image.open(path))
@@ -42,7 +42,7 @@ def main():
     elif choice == '3':
         print('Predictie...')
         #deschidem imaginea
-        temp = readImage("./ds/614.jpg")
+        temp = readImage("./ds/1.jpg")
         color = temp.copy()
 
         #incarcam cnn
@@ -57,14 +57,15 @@ def main():
         #contur = bk.contur_pastila(img,mascaPastila) # preluam forma pastilei
         #nobg = bk.eliminare_fundal(img,mascaPastila) #eliminam fundalul
 
-        #test functie care returneaza culori
         predicted_color=train_color_fcnn.get_color_prediction(fcnn,color)
-        #------
 
 
         shape = traincnn.prepare_image(color) #pregatim imaginea pt cnn
-        # predicted_shape = traincnn.get_shape_prediction(cnn, shape)
-        fc_afisare(color, predicted_color)#, predicted_shape)
+        predicted_shape = traincnn.get_shape_prediction(cnn, shape)
+
+        names=nc.find_name(predicted_color,predicted_shape)
+        fc_afisare(color, title=f"{predicted_shape} {predicted_color}",xaxis= f"{names} ")
+
         plt.show()
     elif choice == '4':
         cnn = traincnn.get_cnn()
@@ -99,6 +100,7 @@ def main():
 
             # fc_afisare(img, pcolor, "", f"{colors[i-1]} {shapes[i-1]}")
             # plt.show()
+
             t = t+1
         c = c/t
         s = s/t
