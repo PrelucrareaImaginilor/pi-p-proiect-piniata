@@ -88,14 +88,12 @@ def main():
             # for color in pcolor.split(", "):
             #     if color in colors[i-1]:
             #         correct = correct+1
-
-
             pcolor=train_color_fcnn.get_color_prediction(fcnn, img)
-            correct=0
-            for color in pcolor.split(", "):
-                if color in colors[i - 1]:
+            correct = 0
+            for x in pcolor.split(","):
+                if x in colors[i].split(", ") or (" " + x) in colors[i].split(", "):
                     correct = correct + 1
-            if correct == len(colors[i - 1].split(", ")):
+            if correct == len(colors[i].split(", ")):
                 c = c + 1
 
             # fc_afisare(img, pcolor, "", f"{colors[i-1]} {shapes[i-1]}")
