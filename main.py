@@ -63,8 +63,8 @@ def main():
         shape = traincnn.prepare_image(color) #pregatim imaginea pt cnn
         predicted_shape = traincnn.get_shape_prediction(cnn, shape)
 
-        names=nc.find_name(predicted_color,predicted_shape)
-        fc_afisare(color, title=f"{predicted_shape} {predicted_color}",xaxis= f"{names} ")
+        nc.find_name(predicted_color,predicted_shape)
+        fc_afisare(color, title=f"{predicted_shape} {predicted_color}")
 
         plt.show()
     elif choice == '4':

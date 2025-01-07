@@ -19,6 +19,8 @@ def find_name(color, shape):
                     name.append(ndc[i])
                 else:
                     name.append(names[i])
-    return name
+    for x in name:
+        print("-"+x)
+
 
 
