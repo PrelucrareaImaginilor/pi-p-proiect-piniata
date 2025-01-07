@@ -45,7 +45,6 @@ def switch(avg):
 
 
 def my_pill_color(color):
-    #transf imaginii in imagine hsv
     color = cv.medianBlur(color, 3)
     color = cv.convertScaleAbs(color, color, 1.1, -20)
 
@@ -62,8 +61,30 @@ def my_pill_color(color):
     avg1 = np.round(np.average(avg1_row, axis = 0))
     avg2_row = np.average(section2, axis = 0)
     avg2 = np.round(np.average(avg2_row, axis = 0))
-
-
-
-
     return avg1,avg2
+
+def my_pill_color_demo(color):
+    color = cv.medianBlur(color, 3)
+    color = cv.convertScaleAbs(color, color, 1.1, -20)
+    # regiuni de interes
+    roi1 = [30, 70, 45, 85]
+    roi1_c = [28, 68, 47, 87]
+    roi2 = [80, 70, 95, 85]
+    roi2_c = [78, 68, 97, 87]
+    # sectiuni de imagine care reprezinta zonele de interes
+    section1 = color[roi1[1]:roi1[3], roi1[0]:roi1[2]]
+    section2 = color[roi2[1]:roi2[3], roi2[0]:roi2[2]]
+    avg1_row = np.average(section1, axis=0)
+    avg1 = np.round(np.average(avg1_row, axis=0))
+    avg2_row = np.average(section2, axis=0)
+    avg2 = np.round(np.average(avg2_row, axis=0))
+
+    a = avg1.astype(tuple)
+    b = avg2.astype(tuple)
+    color = cv.rectangle(color, (roi1_c[0], roi1_c[1]), (roi1_c[2], roi1_c[3]), (255, 255, 255), 4)
+    color = cv.rectangle(color, (roi2_c[0], roi2_c[1]), (roi2_c[2], roi2_c[3]), (255, 255, 255), 4)
+    color = cv.rectangle(color, (roi1[0], roi1[1]), (roi1[2], roi1[3]), a, 4)
+    color = cv.rectangle(color, (roi2[0], roi2[1]), (roi2[2], roi2[3]), b, 4)
+    plt.figure()
+    plt.imshow(color)
+    return

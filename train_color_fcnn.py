@@ -101,7 +101,7 @@ def get_color_prediction(fcnn, img):
     color1,color2=my_pill_color(img)
 
     input=prepare_input(color1,color2)
-    pred = fcnn.predict(input)
+    pred = fcnn.predict(input, verbose=0)
 
     pred1=np.argmax(pred[0],axis=1)
     pred2=np.argmax(pred[1],axis=1)

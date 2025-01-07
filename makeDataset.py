@@ -6,7 +6,7 @@ import pandas as pd
 import background_fct as bg
 import numpy as np
 import PIL as pil
-
+import cv2 as cv
 
 def generare_dataset():
     directory = '.\\ds\\'
@@ -17,11 +17,11 @@ def generare_dataset():
     def read_image(image_file, label):
         def _process_image(image_file_str):
             image_path = directory + image_file_str.numpy().decode('utf-8')
-            imagenp = np.asarray(pil.Image.open(image_path).resize((120, 120)))
-            imagenp = cv2.cvtColor(imagenp, cv2.COLOR_RGB2GRAY)
-            mask = bg.masca_pastila(imagenp)
-            imagenp = bg.contur_pastila(imagenp, mask)
-            imagenp = np.expand_dims(imagenp, axis=-1) #inca o dimensiune pt canal
+            imagenp = np.asarray(pil.Image.open(image_path))  # .resize((120, 120)))
+            imagenp = imagenp[59:119, :]
+            imagenp = cv.bilateralFilter(imagenp, 3, 60, 60)
+            imagenp = cv.Canny(imagenp, 45, 200)
+            imagenp = np.expand_dims(imagenp, axis=-1)
             return imagenp.astype(np.float32)
 
         image = tf.py_function(_process_image, [image_file], tf.float32)
