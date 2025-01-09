@@ -1,13 +1,9 @@
-from operator import concat
-
 import numpy as np
 import PIL as pil
 import cv2 as cv
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import title
 import re
 import color_prel
-from color_prel import my_pill_color
 import traincnn
 import train_color_fcnn
 import makeDataset
@@ -111,15 +107,19 @@ def main():
         s = s/t
         print("Testare facuta pe: ", t, " imagini\nAcuratete forma: ", s*100, "%\nAcuratete culoare: ", c*100, "%\n")
     elif choice == '5':
-        temp = readImage("./ds/1.jpg")
         cnn = traincnn.get_cnn()
         fcnn = train_color_fcnn.get_fcnn()
-        shimg = traincnn.prepare_image_demo(temp)
-        pshape = traincnn.get_shape_prediction(cnn, shimg)
-        color_prel.my_pill_color_demo(temp)
-        pcolor = train_color_fcnn.get_color_prediction(fcnn, temp)
-        fc_afisare(temp, title=f"{pshape} {pcolor}")
-        plt.show()
+        df = pd.read_csv('./shapescolors.csv')
+        shapes = df['shape'].values
+        colors = df['color'].values
+        for i in range(2096, 4192):
+            temp = readImage(f"./ds/{i}.jpg")
+            shimg = traincnn.prepare_image_demo(temp)
+            pshape = traincnn.get_shape_prediction(cnn, shimg)
+            color_prel.my_pill_color_demo(temp)
+            pcolor = train_color_fcnn.get_color_prediction(fcnn, temp)
+            fc_afisare(temp, title=f"PREDICTED: {pshape} {pcolor}", xaxis=f"TRUE: {shapes[i-1]} {colors[i-1]}")
+            plt.show()
     return
 
 if __name__ == '__main__':

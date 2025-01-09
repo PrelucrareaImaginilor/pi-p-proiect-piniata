@@ -86,5 +86,6 @@ def my_pill_color_demo(color):
     color = cv.rectangle(color, (roi1[0], roi1[1]), (roi1[2], roi1[3]), a, 4)
     color = cv.rectangle(color, (roi2[0], roi2[1]), (roi2[2], roi2[3]), b, 4)
     plt.figure()
+    plt.title("COLOR AREAS")
     plt.imshow(color)
     return

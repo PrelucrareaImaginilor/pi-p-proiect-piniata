@@ -58,6 +58,7 @@ def prepare_image_demo(img):
     img = cv.bilateralFilter(img, 3, 60, 60)
     img = cv.Canny(img, 45, 200)
     plt.figure()
+    plt.title("CONTUR FORMA")
     plt.imshow(img)
     # adaugare dimensiune pt canal
     img = np.expand_dims(img, axis=-1)
