@@ -49,8 +49,8 @@ def my_pill_color(color):
     color = cv.convertScaleAbs(color, color, 1.1, -20)
 
     #regiuni de interes
-    roi1 = [30, 70, 45, 85]
-    roi2 = [80, 70, 95, 85]
+    roi1 = [40, 70, 55, 85]
+    roi2 = [65, 70, 80, 85]
 
 
     #sectiuni de imagine care reprezinta zonele de interes
@@ -67,10 +67,14 @@ def my_pill_color_demo(color):
     color = cv.medianBlur(color, 3)
     color = cv.convertScaleAbs(color, color, 1.1, -20)
     # regiuni de interes
-    roi1 = [30, 70, 45, 85]
-    roi1_c = [28, 68, 47, 87]
-    roi2 = [80, 70, 95, 85]
-    roi2_c = [78, 68, 97, 87]
+    # roi1 = [30, 70, 45, 85]
+    # roi1_c = [28, 68, 47, 87]
+    # roi2 = [80, 70, 95, 85]
+    # roi2_c = [78, 68, 97, 87]
+    roi1 = [40, 70, 55, 85]
+    roi1_c = [38, 68, 57, 87]
+    roi2 = [65, 70, 80, 85]
+    roi2_c = [63, 68, 82, 87]
     # sectiuni de imagine care reprezinta zonele de interes
     section1 = color[roi1[1]:roi1[3], roi1[0]:roi1[2]]
     section2 = color[roi2[1]:roi2[3], roi2[0]:roi2[2]]

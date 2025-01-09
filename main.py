@@ -112,7 +112,7 @@ def main():
         df = pd.read_csv('./shapescolors.csv')
         shapes = df['shape'].values
         colors = df['color'].values
-        for i in range(2096, 4192):
+        for i in range(2096, 4192):#2096
             temp = readImage(f"./ds/{i}.jpg")
             shimg = traincnn.prepare_image_demo(temp)
             pshape = traincnn.get_shape_prediction(cnn, shimg)
