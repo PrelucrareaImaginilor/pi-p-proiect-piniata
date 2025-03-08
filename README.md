@@ -1,11 +1,41 @@
+# Clasificarea medicamentelor
+## Introducere
+Apariția a tot mai multor medicamente a dus la cosumarea în necunoștință a acestora. Pentru evitarea acestui lucru se încearcă crearea de aplicații și moduri de recunoaștere a pastilelor în moduri ușor de folosit de toată lumea, iar acestea reprezintă unul din motivele pentru care clasificarea medicamentelor reprezintă un domeniu de interes Scopul nostru este de a identifica pastilele primite ca input, prin clasificarea acestora în funcție de culoare și formă.
+## Metoda de rezolvare abordată
+Pentru realizarea proiectului am utilizat Python 3.8.20 cu librăriile: OpenCV, TensorFlow, Matplotlib, Pandas și PIL.
+Detectarea <b>formelor</b> medicamentelor a fost făcută prin preluarea unei singure pastile din imaginea inițială, aplicarea unu filtru bilateral pentru netezirea imaginii fără a estompa muchiile și aplicarea algoritmului de detectie a muchiilor Canny, imaginea prelucrată va fi preluată de o rețea neuronală convoluțională.
 
-## Clasificarea Medicamentelor
-|Nr.|Autor(i)/An|Titlul Articolului/proiectului | Aplicație/Domeniu | Tehnologii utilizate |Metodologie/Abordare |Rezultate|Limitări|Comentarii suplimentare|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|1.|[Luan Sousa Cordeiro](https://ieeexplore.ieee.org/author/37087404374), [Joyce Saraiva Lima](https://ieeexplore.ieee.org/author/37087405122), [A. Iedo Rocha Ribeiro](https://ieeexplore.ieee.org/author/37087113691), [Francisco Nivando Bezerra](https://ieeexplore.ieee.org/author/37266756100), [Pedro P. Rebouças Filho](https://ieeexplore.ieee.org/author/37086224533), [Ajalmar R. Rocha Neto](https://ieeexplore.ieee.org/author/37085793861)<hr> **2019**|[Pill Image Classification using Machine Learning](https://ieeexplore.ieee.org/abstract/document/8923984/)|Medical|Python 3.6 cu librăriile open-source: matplotlib 3.0.2, numpy 1.14.4, skimage 0.14.1, sklearn 0.20.1| Sistem automat de clasificare pentru imagini cu medicamente folosind machine learning | ”The results indicate that all classifiers perform accurate predictions, with an average accuracy above 99.3%. This high classification accuracy happens even in the presence of unbalanced classes, with precision and recall average scores above 98%.”|nu se precizează|Pastilele sunt clasificate dupa forma in 3 categorii: rotunde, ovale si capsue.|
-|2.|[Asif Mehmood](https://ieeexplore.ieee.org/author/37087135691), [Chaehoon Yoon](https://ieeexplore.ieee.org/author/37087137015), [Seungjae Kim](https://ieeexplore.ieee.org/author/37087135616), [Sungjin Kim](https://ieeexplore.ieee.org/author/37087135606)<hr> **2019**|[MobilePill: Accurate Pill Image Classification via Deep Learning on Mobile](https://ieeexplore.ieee.org/abstract/document/8939727/authors#authors)|Medical|[OCR Google](https://cloud.google.com/use-cases/ocr)| Sistem automat  de clasificare pentru imagine cu medicamente folosind deep learning |Rata de predicție este între 50% și 100%|Dificultate în recunoașterea anumitor caracteristici, limitări în preprocesare, OCR nu poate recunoaște în totalitate caracterele de pe medicamente.|Se iau în calcul variațiile de culoare ale pastilei + se iau în calcul mai multe forme de pastile(ex. poligonala).|
-|3.|[Windra Swastika](https://ieeexplore.ieee.org/author/37087228531), [Kestrilia Prilianti](https://ieeexplore.ieee.org/author/37085472288), [Andrian Stefanus](https://ieeexplore.ieee.org/author/37087228410), [Hendry Setiawan](https://ieeexplore.ieee.org/author/37087228511), [Afif Zuhri Arfianto](https://ieeexplore.ieee.org/author/37086873142), [Ari Wibawa Budi Santosa](https://ieeexplore.ieee.org/author/37087100873), [Mohammad Basuki Rahmat](https://ieeexplore.ieee.org/author/37086869004), [Edy Setiawan](https://ieeexplore.ieee.org/author/37086284326) <hr> **2019**|[Preliminary Study of Multi Convolution Neural Network-Based Model To Identify Pills Image Using Classification Rules](https://ieeexplore.ieee.org/document/8937272)|Medical|LeNet, AlexNet|Sistem automat de clasificare |LeNet: 99.83% pt. forma, 99.50% pt. culoare, 99.08% pt. imprint <br> AlexNet: 100% pt. forma, 99.66% pt. culoare, 97.75% pt. imprint|nu se precizează|"There are three main identifiers of a pill that needs to be identified, ie shape, color and imprint. Three CNNs model are developed based on those three main identifier and a classification rule to combine the results of CNNs model are applied."|
-4.|[Svetlana Kim](https://sciprofiles.com/profile/3810383), [Eun-Young Park](https://sciprofiles.com/profile/author/eWp4OUhIQkVHdzdnQnpZMEgyN1paQT09), [Jun-Seok Kim](https://sciprofiles.com/profile/author/T2Vwd2J5U3Z2L0ZpWkRTWGhDNWcvaDM0T3ovdEpabXhDbzA3UVV2RStCWT0=), [Sun-Young Ihm](https://sciprofiles.com/profile/1608642) <hr> **2024** |[ Combination Pattern Method Using Deep Learning for Pill Classification](https://www.mdpi.com/2076-3417/14/19/9065)|Medical|YOLOv5, PyTorch|Sistem automat de clasificare pentru imagine cu medicamente folosind o rețea convoluțională|Aproximativ 75% acuratețe|Limitări în preprocesare|Multi Combination Pattern Labeling|
-|5.|[Narasak Boonthep](https://ieeexplore.ieee.org/author/37071062300), [Jirabhorn Chaiwongsai](https://ieeexplore.ieee.org/author/37087649067), [Bowonsak Srisungsittisunti](https://ieeexplore.ieee.org/author/37086392526), [Thana Udomsripaiboon](https://ieeexplore.ieee.org/author/37689038400)<hr> **2024**|[Drug image classification with deep learning by using Fast Region-based Convolution Neural Network](https://ieeexplore.ieee.org/document/10479992)|Medical|nu se precizează|Sistem automat de clasificare a medicamentelor, folosind o rețea neuronală de convoluție|"Experiments have shown that our proposed framework can accurately identify different types of 20 drugs with over 98 percent accuracy."|nu se precizează|Fast Region-base convolution neural network|
+<!--aici de pus o poza-->
+<div align="center">
+    <img src=/results/shape_canny.png>
+</div>
+<p>
+Pentru detectarea <b>culorilor</b> am utilizat un filtru median de netezire. Mai apoi am folosit media culorilor din doua zone de interes din imagine pentru a obține valorile RGB. Acestea sunt preluate de o rețea neuronală multilayer care va numi culorile date.
+</p>
+<div align=center>
+          <img src=/results/color_nn.png> 
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXfjmfN3zZ8Do08A4gLId3I1eLpMst3959kjcc_zUIO4NwSyKPgLp_Pki8b9pmSmaSoIGmFTBVPJCCWo0lrGyBFd2N_2GmszLOgLvtRZa6VjQipRnRDG3vr3DuylTN4CRRnF8ZzP6ABVpnPGeoBRxedKWwk?key=2AbNmImatDtZTk38kSXm-A)
+</div>
+
+## Rezultate
+•	Printr-o trecere de la abordare  manuală  de împărțire a spațiului HSV la o rețea neuronală s-a constat o creștere a acurateții de 15%.
+•	Prin schimbarea metodei de preprocesare a imaginii pentru detecția formei s-a constat o creștere a acurateții de 4%.
+<div align=center>
+  <img src=/results/shape_color_ac.png>
+  <img src=/results/shape_ac.png>
+  <img src=/results/color_ac.png>
+</div>
+
+## Limitări 
+   Limitările vin de la setul de date care anumite culori etichetate greșit, dificultatea  extragerii textului cauzată de gravura în pastilă și de rezoluția imaginilor, și distribuție inegală a formelor/culorilor în datele de test și cele de antrenare.
+  
+## Bibliografie
+1.Dataset: https://healthdata.gov/w/5vhs-kfa6/default?cur=0pRtVXYvSWA <br>
+2.<a href=https://www.tensorflow.org/api_docs>TensorFlow</a> <br>
+3.<a href=https://docs.opencv.org/4.x/index.html
+     >OpenCV</a><br>
+4.<a href=https://ieeexplore.ieee.org/abstract/document/8923984>Pill Image Classification using Machine Learning - Luan Sousa Cordeiro, Joyce Saraiva Lima, A. Iedo Rocha Ribeiro, Francisco Nivando Bezerra, Pedro P. Rebouças Filho, Ajalmar R. Rocha Neto</a><br>
+5.<a href=https://ieeexplore.ieee.org/abstract/document/8939727/authors#authors>MobilePill: Accurate Pill Image Classification via Deep Learning on Mobile - Asif Mehmood, Chaehoon Yoon, Seungjae Kim, Sungjin Kim</a><br>
+6.<a href=https://ieeexplore.ieee.org/document/8937272>Preliminary Study of Multi Convolution Neural Network-Based Model To Identify Pills Image Using Classification Rules - Narasak Boonthep, Jirabhorn Chaiwongsai, Bowonsak Srisungsittisunti, Thana Udomsripaiboon</a><br>
+7.<a href=https://www.mdpi.com/2076-3417/14/19/9065>Combination Pattern Method Using Deep Learning for Pill Classification - Svetlana Kim, Eun-Young Park, Jun-Seok Kim 3 andSun-Young Ihm </a> <br>
+8.<a href=https://ieeexplore.ieee.org/document/10479992>Drug image classification with deep learning by using Fast Region-based Convolution Neural Network - Narasak Boonthep, Jirabhorn Chaiwongsai,Bowonsak Srisungsittisunti, Thana Udomsripaiboon</a>
